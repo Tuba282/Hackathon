@@ -139,7 +139,7 @@ const UserQuires = () => {
   const fetchAllReviews = async (styleId = "") => {
     try {
       const token = localStorage.getItem('token');
-      let url = 'http://localhost:2525/api/reviews';
+      let url = `https://server-production-e88c.up.railway.app/api/reviews`;
       if (styleId) {
         url += `/${styleId}`;
       }
@@ -191,7 +191,7 @@ const UserQuires = () => {
       toast.error(err?.response?.data?.message || 'Failed to delete review');
     }
   };
-
+  
   const handleAddReview = async () => {
     try {
       const res = await apiReviewHandle.post(`/${style._id}`, {
@@ -364,6 +364,7 @@ const UserQuires = () => {
       if (res.data.success) {
         toast.success("Review added");
         fetchHijabiStyles(); // refresh list with new review
+        fetchAllReviews(); // refresh reviews list immediately
       } else {
         toast.error(res.data.message || "Failed to add review");
       }
@@ -398,17 +399,13 @@ const UserQuires = () => {
 
       <div className="flex justify-start itmes-center gap-4 flex-wrap">
         {loading ? (
-          <div className="max-w-lg  flex items-center justify-center">
-            <Loader />
-
-          </div>
+          <Loader />
         ) : showFavorites ? (
           <UserFavorites hijabiStyles={hijabiStyles} favorites={favorites} />
         ) : hijabiStyles.length === 0 ? (
           <div className="text-gray-500">No hijabi styles found.</div>
         ) : (
           hijabiStyles.map((style) => (
-            // ...existing code for each style card...
             <div key={style._id} className="max-w-lg border px-6 py-4 rounded-lg shadow-sm shadow-black/50 my-5">
               <img src={style.image} className='w-full rounded-t h-[300px]' />
               <div className="flex items-center mb-6 mt-2">
@@ -439,7 +436,7 @@ const UserQuires = () => {
                 <h4 className="font-semibold text-gray-800 mb-2">Reviews</h4>
                 {(() => {
                   const styleReviews = allReviews.filter(
-                    (review) => review.hijabStyle === style._id
+                     (review) => String(review.hijabStyle) === String(style._id)
                   );
                   return styleReviews.length === 0 ? (
                     <div className="text-gray-500 text-sm">No reviews yet.</div>
