@@ -24,7 +24,7 @@ const verifyConnection = async () => {
 
 const sendVerifyOTP = async (recipientEmail, otpCode) => {
   const mailOptions = {
-    from: `"Query Board" <${process.env.EMAIL_USER}>`, // Fixed syntax
+    from: `"HijabiStyle" <${process.env.EMAIL_USER}>`, // Fixed syntax
     to: recipientEmail,
     subject: 'Verify Your Email - OTP Code',
     html: `
@@ -36,7 +36,7 @@ const sendVerifyOTP = async (recipientEmail, otpCode) => {
         <p>This OTP is valid for only 10 minutes.</p>
         <br />
         <p>If you didn't request this, you can safely ignore it.</p>
-        <p style="color: #999;">TQuery Board Team</p>
+        <p style="color: #999;">THijabiStyle Team</p>
       </div>
     `,
   };
@@ -61,7 +61,7 @@ export default sendVerifyOTP;
 
 export const sendForgetPassword = async (recipientEmail, resetURL) => {
   const mailOptions = {
-    from: `"Query Board" <${process.env.EMAIL_USER}>`, 
+    from: `"HijabiStyle" <${process.env.EMAIL_USER}>`, 
     to: recipientEmail,
     subject: 'Reset Password',
     html: `
@@ -72,7 +72,7 @@ export const sendForgetPassword = async (recipientEmail, resetURL) => {
         <p style="color: #333; background: #f0f0f0; padding: 10px; border-radius: 5px;">${resetURL}</p>
         <br />
         <p>If you didn't request this, you can safely ignore it.</p>
-        <p style="color: #999;">Query Board Team</p>
+        <p style="color: #999;">HijabiStyle Team</p>
       </div>
     `,
   };
@@ -88,42 +88,3 @@ export const sendForgetPassword = async (recipientEmail, resetURL) => {
 };
 
 
-// Notify user when admin answers their question
-export const sendAnswerNotification = async (recipientEmail, questionTitle,questiondescription, answer) => {
-  const mailOptions = {
-    from: `"Query Board" <${process.env.EMAIL_USER}>`,
-    to: recipientEmail,
-    subject: 'Your Question Has Been Answered!',
-    html: `
-      <div style="font-family: Arial, sans-serif; padding: 20px; background-color: #f9f9f9;">
-        <h2 style="color: #4CAF50;">Question Answered</h2>
-        <p>Hello!</p>
-        <p>Your question has been answered by our admin team:</p>
-        <div style="margin-bottom: 10px;">
-          <strong>Title:</strong>
-          <div style="background: #f0f0f0; padding: 10px; border-radius: 5px; color: #333;">${questionTitle}</div>
-        </div>
-        <div style="margin-bottom: 10px;">
-          <strong>Question:</strong>
-          <div style="background: #f0f0f0; padding: 10px; border-radius: 5px; color: #333;">${questiondescription}</div>
-        </div>
-        <div>
-          <strong>Answer:</strong>
-          <div style="background: #e8f5e9; padding: 10px; border-radius: 5px; color: #333;">${answer}</div>
-        </div>
-        <br />
-        <p>If you have more questions, feel free to ask!</p>
-        <p style="color: #999;">Query Board Team</p>
-      </div>
-    `,
-  };
-
-  try {
-    const result = await transporter.sendMail(mailOptions);
-    console.log('Answer notification email sent successfully!', result.messageId);
-    return { success: true, messageId: result.messageId };
-  } catch (error) {
-    console.error('Error sending answer notification:', error);
-    throw new Error(`Failed to send answer notification: ${error.message}`);
-  }
-};

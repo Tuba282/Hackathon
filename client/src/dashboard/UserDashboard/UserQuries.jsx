@@ -191,7 +191,7 @@ const UserQuires = () => {
       toast.error(err?.response?.data?.message || 'Failed to delete review');
     }
   };
-  
+
   const handleAddReview = async () => {
     try {
       const res = await apiReviewHandle.post(`/${style._id}`, {
@@ -398,7 +398,10 @@ const UserQuires = () => {
 
       <div className="flex justify-start itmes-center gap-4 flex-wrap">
         {loading ? (
-          <Loader />
+          <div className="max-w-lg  flex items-center justify-center">
+            <Loader />
+
+          </div>
         ) : showFavorites ? (
           <UserFavorites hijabiStyles={hijabiStyles} favorites={favorites} />
         ) : hijabiStyles.length === 0 ? (
