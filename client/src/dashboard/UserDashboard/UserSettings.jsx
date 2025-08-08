@@ -61,7 +61,7 @@ const UserSettings = ({ updateUser, updateImage, handleUserSettingsChange, handl
               <textarea id="description" name="description" rows="3" placeholder="Write a few sentences about yourself." className="shadow-sm p-2 text-lg outline-none block w-full sm:text-sm border border-gray-300 rounded-md" value={updateUser.description} onChange={handleUserSettingsChange}></textarea>
             </div>
           </div> */}
-          <div className="flex flex-col">
+          {/* <div className="flex flex-col">
             <label htmlFor="photo" className="block text-sm font-medium text-gray-700"> Photo </label>
             <div className="mt-1 flex items-center">
               <span className="h-12 w-12 rounded-full overflow-hidden bg-gray-100">
@@ -69,7 +69,7 @@ const UserSettings = ({ updateUser, updateImage, handleUserSettingsChange, handl
                 <img onClick={() => { updateImage.current.click() }} src={currentUser.avatar || 'https://t4.ftcdn.net/jpg/05/89/93/27/360_F_589932782_vQAEAZhHnq1QCGu5ikwrYaQD0Mmurm0N.jpg'} alt="" />
               </span>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
