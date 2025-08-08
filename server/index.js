@@ -5,10 +5,10 @@ import dotenv from 'dotenv';
 import authRoutes from './routes/auth.js';
 import adminRoutes from './routes/adminRoutes.js';
 import uploadFile from './routes/common.js';
+import hijabStyleRoutes from './routes/hijabStyleRoutes.js';
+import reviewRoutes from './routes/reviewRoutes.js';
 import userRoutes from './routes/userRoutes.js';
 import fileUpload from 'express-fileupload';
-import adminQuestionRoutes from './routes/admin_Ques_Ans_Routes.js';
-import userQuestionRoutes from './routes/user_Ques_Ans_Routes.js';
 
 // Load environment variables
 dotenv.config();
@@ -29,8 +29,8 @@ app.use('/api/auth', authRoutes)
 app.use('/api/auth', userRoutes)
 app.use('/api/auth', adminRoutes)
 app.use('/api/upload', uploadFile)
-app.use('/api/admin/quries', adminQuestionRoutes)
-app.use('/api/user/quries', userQuestionRoutes)
+app.use("/api/styles", hijabStyleRoutes);//--2
+app.use("/api/reviews", reviewRoutes);
 
 // Test route
 app.get('/', (req, res) => {

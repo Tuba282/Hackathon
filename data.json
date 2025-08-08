@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Classic Everyday Wrap",
+    "description": "A simple, fuss-free everyday style perfect for daily wear.",
+    "image": "https://images.pexels.com/photos/1937336/pexels-photo-1937336.jpeg",
+    "averageRating": 4.2,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78901"
+  },
+  {
+    "name": "Turban Hijab Style",
+    "description": "Chic, modern turban-style wrap, ideal for a minimalist look.",
+    "image": "https://images.pexels.com/photos/1704488/pexels-photo-1704488.jpeg",
+    "averageRating": 4.5,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78902"
+  },
+  {
+    "name": "Printed Hijab",
+    "description": "Vibrant printed scarf draped elegantly—great for casual outings.",
+    "image": "https://images.pexels.com/photos/2065200/pexels-photo-2065200.jpeg",
+    "averageRating": 4.0,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78901"
+  },
+  {
+    "name": "Sporty Hijab",
+    "description": "Jersey/spandex one-piece sports hijab – breathable and flexible.",
+    "image": "https://images.pexels.com/photos/1787864/pexels-photo-1787864.jpeg",
+    "averageRating": 4.3,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78902"
+  },
+  {
+    "name": "Elegant Evening Hijab",
+    "description": "Silk material with delicate embroidery, perfect for formal events.",
+    "image": "https://images.pexels.com/photos/2825957/pexels-photo-2825957.jpeg",
+    "averageRating": 4.7,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78901"
+  },
+  {
+    "name": "Layered Hijab Style",
+    "description": "Layered draping technique for a voluminous and graceful look.",
+    "image": "https://images.pexels.com/photos/1536619/pexels-photo-1536619.jpeg",
+    "averageRating": 4.6,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78902"
+  },
+  {
+    "name": "Casual Cotton Hijab",
+    "description": "Soft cotton hijab ideal for summer comfort and breathability.",
+    "image": "https://images.pexels.com/photos/1906811/pexels-photo-1906811.jpeg",
+    "averageRating": 4.1,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78901"
+  },
+  {
+    "name": "Maxi Hijab",
+    "description": "Extra-long fabric for versatile wrapping and complete coverage.",
+    "image": "https://images.pexels.com/photos/2892256/pexels-photo-2892256.jpeg",
+    "averageRating": 4.4,
+    "createdBy": "64f0a1e1a2b3c4d5e6f78902"
+  }
+]

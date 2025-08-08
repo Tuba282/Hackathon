@@ -275,7 +275,7 @@ const Dashboard = () => {
   const userNavItems = [
     { id: 'profile', label: 'Profile', icon: FaUser },
     { id: 'home', label: 'Home', icon: FaHome },
-    { id: 'quires', label: 'My Quires', icon: FaCube },
+    { id: 'Collection', label: 'Collection', icon: FaCube },
     { id: 'favorites', label: 'Favorites', icon: FaHeart },
     { id: 'settings', label: 'Settings', icon: FaCog },
     { id: 'login', label: 'Login', icon: FaUser },
@@ -328,7 +328,7 @@ const Dashboard = () => {
         case 'login': return goto('/');
         case 'home': return goto('/board');
         case 'profile': return <UserProfile currentUser={currentUser} />;
-        case 'quires': return <UserQuires goto={goto} />;
+        case 'Collection': return <UserQuires />;
         case 'favorites': return <UserFavorites />;
         case 'settings': return <UserSettings updateUser={updateUser} updateImage={updateImage} handleUserSettingsChange={handleUserSettingsChange} handleImageChange={handleImageChange} handleUpdateProfile={handleUpdateProfile} handleLogout={handleLogout} currentUser={currentUser} />;
         default: return <UserProfile currentUser={currentUser} />;
@@ -391,7 +391,7 @@ const Dashboard = () => {
                   </svg>
                 </button>
                 <h2 className="text-2xl md:flex hidden  font-bold text-gray-900 capitalize">
-                  {currentUser.role} Dashboard
+                  The Hijabi Market
                 </h2>
               </div>
 
