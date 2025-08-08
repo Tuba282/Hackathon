@@ -264,16 +264,27 @@ const UserQuires = () => {
     e.preventDefault();
     setHijabiFormLoading(true);
     try {
-      const formData = new FormData();
-      formData.append('name', hijabiForm.name);
-      formData.append('description', hijabiForm.description);
-      if (hijabiForm.image) {
-        formData.append('image', hijabiForm.image);
+      let imageUrl = hijabiForm.image;
+      // If hijabiForm.image is a File, upload it first
+      if (hijabiForm.image && typeof hijabiForm.image !== 'string') {
+        // Use uploadFile helper from apiUploadHandle
+        const uploadRes = await import('../../config/apiUploadHandle.js').then(mod => mod.uploadFile(hijabiForm.image));
+        if (uploadRes.data.success && uploadRes.data.url) {
+          imageUrl = uploadRes.data.url;
+        } else {
+          toast.error(uploadRes.data.message || 'Image upload failed');
+          setHijabiFormLoading(false);
+          return;
+        }
       }
-      const res = await apiHijabStyleHandle.post(`/create`, formData, {
+      const payload = {
+        name: hijabiForm.name,
+        description: hijabiForm.description,
+        image: imageUrl
+      };
+      const res = await apiHijabStyleHandle.post(`/create`, payload, {
         headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data'
+          Authorization: `Bearer ${token}`
         }
       });
       if (res.data.success) {
@@ -381,7 +392,7 @@ const UserQuires = () => {
             onClick={() => setShowFavorites(true)}
             className={`inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md ${showFavorites ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-indigo-700 focus:outline-none`}
           >Favorites</button>
-          <button type="button" onClick={() => setAddHijabiModal(true)} className="ml-3 inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Hijabi Style <IoHandLeft /></button>
+          {/* <button type="button" onClick={() => setAddHijabiModal(true)} className="ml-3 inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Hijabi Style <IoHandLeft /></button> */}
         </div>
       </div>
 
@@ -467,7 +478,7 @@ const UserQuires = () => {
                   <textarea
                     name="review"
                     placeholder="Write your review..."
-                    className="w-full border rounded px-3 py-2 text-sm"
+                    className="w-full border rounded px-3 py-2 text-sm outline-none"
                     required
                   />
                   <select name="rating" className="border rounded px-2 py-1 text-sm" required>

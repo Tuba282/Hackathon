@@ -274,7 +274,7 @@ const Dashboard = () => {
   // Sidebar navigation
   const userNavItems = [
     { id: 'profile', label: 'Profile', icon: FaUser },
-    { id: 'home', label: 'Home', icon: FaHome },
+    // { id: 'home', label: 'Home', icon: FaHome },
     { id: 'Collection', label: 'Collection', icon: FaCube },
     // { id: 'favorites', label: 'Favorites', icon: FaHeart },
     { id: 'settings', label: 'Settings', icon: FaCog },

@@ -114,8 +114,11 @@ const Login = () => {
               </div>
             </div>
           </div>
-          <p className="mt-2 text-center text-sm text-gray-600">
+          <p className="flex justify-between items center mt-2 text-center text-sm text-gray-600">
             {' '}
+            <Link to="/dashboard" className="font-medium text-indigo-600 hover:text-indigo-500">
+              Dashboard
+            </Link>
             <Link to="/forgetPassword" className="font-medium text-indigo-600 hover:text-indigo-500">
               forgetPassword ?
             </Link>

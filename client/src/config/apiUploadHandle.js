@@ -5,9 +5,17 @@ import axios from "axios"
 export const baseUrl = `https://server-production-e88c.up.railway.app/api/upload`
 
 
+// Use axios instance for baseURL, but do not set Content-Type globally
 const apiUploadHandle = axios.create({
-    baseURL: baseUrl,
-    // Do NOT set Content-Type for file uploads; let browser/axios set it automatically
-})
+    baseURL: baseUrl
+});
 
-export default apiUploadHandle
+// Helper for uploading a file (FormData)
+export const uploadFile = async (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+    // No need to set Content-Type, browser/axios will handle it
+    return apiUploadHandle.post('/', formData);
+};
+
+export default apiUploadHandle;
