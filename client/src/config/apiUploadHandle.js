@@ -1,13 +1,13 @@
 import axios from "axios"
 
-// export const baseUrl = `https://ques-ans-backend.vercel.app/api/upload`
-export const baseUrl = `http://localhost:2525/api/upload`
+
+// export const baseUrl = `http://localhost:2525/api/upload`
+export const baseUrl = `https://server-production-e88c.up.railway.app/api/upload`
+
 
 const apiUploadHandle = axios.create({
     baseURL: baseUrl,
-    headers: {
-        'Content-Type': 'application/json',
-    },
+    // Do NOT set Content-Type for file uploads; let browser/axios set it automatically
 })
 
 export default apiUploadHandle

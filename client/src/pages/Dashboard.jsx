@@ -276,7 +276,7 @@ const Dashboard = () => {
     { id: 'profile', label: 'Profile', icon: FaUser },
     { id: 'home', label: 'Home', icon: FaHome },
     { id: 'Collection', label: 'Collection', icon: FaCube },
-    { id: 'favorites', label: 'Favorites', icon: FaHeart },
+    // { id: 'favorites', label: 'Favorites', icon: FaHeart },
     { id: 'settings', label: 'Settings', icon: FaCog },
     { id: 'login', label: 'Login', icon: FaUser },
   ];
@@ -329,7 +329,7 @@ const Dashboard = () => {
         case 'home': return goto('/board');
         case 'profile': return <UserProfile currentUser={currentUser} />;
         case 'Collection': return <UserQuires />;
-        case 'favorites': return <UserFavorites />;
+        // case 'favorites': return <UserFavorites />;
         case 'settings': return <UserSettings updateUser={updateUser} updateImage={updateImage} handleUserSettingsChange={handleUserSettingsChange} handleImageChange={handleImageChange} handleUpdateProfile={handleUpdateProfile} handleLogout={handleLogout} currentUser={currentUser} />;
         default: return <UserProfile currentUser={currentUser} />;
       }

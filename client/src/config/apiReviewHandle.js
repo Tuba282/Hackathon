@@ -1,7 +1,8 @@
 import axios from "axios"
 
 // export const baseUrl = `https://ques-ans-backend.vercel.app/api/styles`
-export const baseUrl = `http://localhost:2525/api/reviews`
+export const baseUrl = `https://server-production-e88c.up.railway.app/api/reviews`
+// export const baseUrl = `http://localhost:2525/api/reviews`
 
 const apiReviewHandle = axios.create({
     baseURL: baseUrl,

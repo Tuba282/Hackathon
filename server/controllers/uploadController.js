@@ -33,27 +33,51 @@ const unique_id = () => {
 
 export const upload_image_contoller = async (req, res) => {
   try {
-    if (!req.files || !req.files.file) {
-      return res.status(400).json({ success: false, message: "No file uploaded" });
+    // Support both express-fileupload (req.files.file) and multer (req.file)
+    let file;
+    if (req.files && req.files.file) {
+      file = req.files.file;
+    } else if (req.file) {
+      file = req.file;
+    } else {
+      return res.status(400).json({ success: false, message: "No file uploaded. Make sure your frontend sends FormData with key 'file'." });
     }
 
-    const file = req.files.file;
-    const file_format = file.name.split(".").pop();
-    const file_type = file.mimetype.split("/")[0];
+    // For express-fileupload, file.data is a Buffer. For multer, file.buffer is a Buffer.
+    const fileBuffer = file.data || file.buffer;
+    if (!fileBuffer) {
+      return res.status(400).json({ success: false, message: "File buffer missing. Check your upload middleware." });
+    }
 
-    const uploadResult = await cloudinary.uploader.upload(file.tempFilePath, {
-      public_id: `${unique_id()}-${file.name.split('.')[0]}`,
-      resource_type: "auto",
-    });
+    const file_format = (file.name || file.originalname || '').split('.').pop();
+    const file_type = (file.mimetype || '').split('/')[0];
+    const file_name = file.name || file.originalname || 'upload';
 
-    return res.status(200).json({
-      success: true,
-      message: "File uploaded successfully",
-      url: uploadResult.secure_url,
-      file_type,
-      file_format,
-      name: file.name,
-    });
+    // Use Cloudinary upload_stream for buffer upload (cloud compatible)
+    const streamifier = await import('streamifier');
+    const stream = streamifier.default.createReadStream(fileBuffer);
+
+    const uploadStream = cloudinary.uploader.upload_stream(
+      {
+        public_id: `${unique_id()}-${file_name.split('.')[0]}`,
+        resource_type: "auto",
+      },
+      (error, result) => {
+        if (error) {
+          console.error("Error during file upload:", error);
+          return res.status(500).json({ success: false, message: "Upload failed", error });
+        }
+        return res.status(200).json({
+          success: true,
+          message: "File uploaded successfully",
+          url: result.secure_url,
+          file_type,
+          file_format,
+          name: file_name,
+        });
+      }
+    );
+    stream.pipe(uploadStream);
   } catch (error) {
     console.error("Error during file upload:", error);
     return res.status(500).json({ success: false, message: "Upload failed", error });

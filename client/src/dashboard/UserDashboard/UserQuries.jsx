@@ -15,6 +15,7 @@ import apiUploadHandle from '../../config/apiUploadHandle.js';
 import apiAdminQueryHandle from '../../config/apiAdminQueryHandle.js';
 import apiReviewHandle from '../../config/apiReviewHandle.js';
 import axios from 'axios';
+import UserFavorites from './UserFavorites';
 
 
 
@@ -23,6 +24,7 @@ const UserQuires = () => {
   const token = getToken()
   const [hijabiStyles, setHijabiStyles] = useState([]);
   const [loading, setLoading] = useState(false)
+  const [showFavorites, setShowFavorites] = useState(false);
   let [addHijabiModal, setAddHijabiModal] = useState(false)
   let [editHijabiModal, setEditHijabiModal] = useState(false)
   const [editHijabiForm, setEditHijabiForm] = useState({ _id: '', name: '', description: '', image: '' });
@@ -368,19 +370,33 @@ const UserQuires = () => {
       />
       <div className="w-full grid md:flex justify-between items-center mb-10">
         <h2 className="text-xl font-bold mb-4 text-center md:text-start"> Collection</h2>
-        <button type="button" onClick={() => setAddHijabiModal(true)} className="ml-3 inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Hijabi Style <IoHandLeft /></button>
+        <div className="flex gap-2">
+          <button
+            type="button"
+            onClick={() => setShowFavorites(false)}
+            className={`inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md ${!showFavorites ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-indigo-700 focus:outline-none`}
+          >All Styles</button>
+          <button
+            type="button"
+            onClick={() => setShowFavorites(true)}
+            className={`inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md ${showFavorites ? 'bg-indigo-600 text-white' : 'bg-gray-200 text-gray-700'} hover:bg-indigo-700 focus:outline-none`}
+          >Favorites</button>
+          <button type="button" onClick={() => setAddHijabiModal(true)} className="ml-3 inline-flex justify-center items-center gap-2 py-2 px-4 border border-transparent shadow-sm text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Hijabi Style <IoHandLeft /></button>
+        </div>
       </div>
 
       <div className="flex justify-start itmes-center gap-4 flex-wrap">
         {loading ? (
           <Loader />
+        ) : showFavorites ? (
+          <UserFavorites hijabiStyles={hijabiStyles} favorites={favorites} />
         ) : hijabiStyles.length === 0 ? (
           <div className="text-gray-500">No hijabi styles found.</div>
         ) : (
           hijabiStyles.map((style) => (
+            // ...existing code for each style card...
             <div key={style._id} className="max-w-lg border px-6 py-4 rounded-lg shadow-sm shadow-black/50 my-5">
               <img src={style.image} className='w-full rounded-t h-[300px]' />
-
               <div className="flex items-center mb-6 mt-2">
                 <img
                   src={currentUser?.profileImage || "https://images.icon-icons.com/1378/PNG/512/avatardefault_92824.png"}
@@ -392,12 +408,10 @@ const UserQuires = () => {
                   <div className="text-gray-500">{new Date(style.createdAt).toLocaleString()}</div>
                 </div>
               </div>
-
               <h2 className='text-lg font-semibold my-2'>Name: <span className='font-normal'>{style.name}</span></h2>
               <p className="text-lg leading-relaxed mb-6">
                 <span className='text-lg font-semibold my-2'>Description: </span>{style.description}
               </p>
-
               {/* Like Button */}
               <button
                 type="button"
@@ -406,9 +420,7 @@ const UserQuires = () => {
               >
                 <FaRegThumbsUp className="inline mr-1" /> {favorites.includes(style._id) ? 'Liked' : 'Like'}
               </button>
-
-
-              {/* Review Section */}
+              {/* ...existing review section and form... */}
               <div className="mt-4 border-t pt-4">
                 <h4 className="font-semibold text-gray-800 mb-2">Reviews</h4>
                 {(() => {
@@ -443,14 +455,11 @@ const UserQuires = () => {
                     </div>
                   );
                 })()}
-
                 {/* Add Review Form */}
                 <form
                   onSubmit={(e) => {
                     e.preventDefault();
                     handleAddReviewForStyle(style._id, e.target.review.value, e.target.rating.value);
-                    console.log(style._id);
-
                     e.target.reset();
                   }}
                   className="mt-3 space-y-2"
