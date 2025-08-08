@@ -17,4 +17,4 @@ const hijabStyleSchema = new mongoose.Schema({
   }
 }, { timestamps: true });
 
-export default mongoose.model("HijabStyle", hijabStyleSchema);
+export default mongoose.model("hijabStyle", hijabStyleSchema);
