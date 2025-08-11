@@ -139,7 +139,7 @@ const UserQuires = () => {
   const fetchAllReviews = async (styleId = "") => {
     try {
       const token = localStorage.getItem('token');
-      let url = `https://server-production-e88c.up.railway.app/api/reviews`;
+      let url = `https://server-production-0cde.up.railway.app/api/reviews`;
       if (styleId) {
         url += `/${styleId}`;
       }
