@@ -42,10 +42,12 @@ dbConnection()
 
 
 app.use(cors({
-  origin: 'http://localhost:3001/', 
+  origin: 'https://hackathon-4jv6.vercel.app/', 
   credentials: true 
 }));
 
+// OPTIONS request ko handle karo
+app.options("*", cors());
 
 
 // Start server
