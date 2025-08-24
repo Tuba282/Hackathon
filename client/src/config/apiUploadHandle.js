@@ -2,7 +2,7 @@ import axios from "axios"
 
 
 // export const baseUrl = `http://localhost:2525/api/upload`
-export const baseUrl = `https://server-production-0cde.up.railway.app/api/upload`
+export const baseUrl = `https://hackathon-server-production-a489.up.railway.app/api/upload`
 
 
 // Use axios instance for baseURL, but do not set Content-Type globally
